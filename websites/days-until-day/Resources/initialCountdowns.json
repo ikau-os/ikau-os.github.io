@@ -1,0 +1,20 @@
+{
+    "TaxDay": {
+        "name": "Tax Day",
+        "mm": 4,
+        "dd": 15,
+        "yy": null
+    },
+    "Halloween": {
+        "name": "Halloween",
+        "mm": 10,
+        "dd": 31,
+        "yy": null
+    },
+    "GTAVI": {
+        "name": "GTA VI releases/since released",
+        "mm": 11,
+        "dd": 19,
+        "yy": 2026
+    }
+}
