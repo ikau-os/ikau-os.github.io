@@ -94,10 +94,34 @@ const requestedYear = document.getElementById("yy");
 const requestedName = document.getElementById("label");
 
 function ClearAll() {
-    requestedMonth.value = "";
-    requestedDay.value = "";
-    requestedYear.value = "";
-    requestedName.value = "";
+    const inputValues = [requestedDay, requestedMonth, requestedName, requestedYear];
+    
+    for (const inputVal of inputValues) {
+        inputVal.value = "";
+    }
+
+    const keys = Object.keys(tableOfInitials);
+
+    if (keys.length > 0) {
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        const initialData = tableOfInitials[randomKey];
+
+        const month = initialData[1];
+        const day = initialData[2];
+        const year = initialData[3];
+        const name = initialData[0];
+
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+
+        const checkDate = new Date(year, month, day);
+
+        if (year && checkDate < now) {
+            getNumberOfDaysSinceDate(month, day, year, name, true);
+        } else {
+            getCountdown(month, day, year, name, true);
+        }
+    }
 }
 
 function SubmitRequest() {
@@ -123,6 +147,9 @@ function SubmitRequest() {
 }
 
 const today = new Date();
+
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1); 
 
@@ -135,10 +162,84 @@ requestedDay.value = tomorrow.getDate();
 
 requestedName.value = "Tomorrow";
 
+
 // Get the days until Tax Day! :)
 // getCountdown(4, 15, null, "Tax Day", true);
 
-let tableOfAds = [];
+// Get the number of day from the range of two dates
+
+const month1 = document.getElementById("mm1");
+const month2 = document.getElementById("mm2");
+
+const day1 = document.getElementById("dd1");
+const day2 = document.getElementById("dd2");
+
+const year1 = document.getElementById("yy1");
+const year2 = document.getElementById("yy2");
+
+const rangeOutput = document.getElementById("output1");
+
+year1.value = yesterday.getFullYear();
+year2.value = tomorrow.getFullYear();
+
+month1.options[yesterday.getMonth() + 1].selected = true;
+month2.options[tomorrow.getMonth() + 1].selected = true;
+
+day1.value = yesterday.getDate();
+day2.value = tomorrow.getDate();
+
+function clearAllRange() {
+    const varTables = [month1, month2, day1, day2, year1, year2];
+
+    varTables.forEach(element => {
+        element.value = "";
+    });
+}
+
+function getDaysFromRange(mo, da, ye, mo1, da1, ye1) {
+    let m1;
+    let d1;
+    let y1;
+
+    let m2;
+    let d2;
+    let y2;
+
+    if (isNaN(mo) || isNaN(da) || isNaN(ye) || isNaN(mo1) || isNaN(da1) || isNaN(ye1)) {
+        m1 = parseInt(month1.value, 10);
+        d1 = parseInt(day1.value, 10);
+        y1 = parseInt(year1.value, 10);
+
+        m2 = parseInt(month2.value, 10);
+        d2 = parseInt(day2.value, 10);
+        y2 = parseInt(year2.value, 10);
+    } else {
+        m1 = mo;
+        d1 = da;
+        y1 = ye;
+
+        m2 = mo1;
+        d2 = da1;
+        y2 = ye1;
+    }
+
+    if (isNaN(m1) || isNaN(d1) || isNaN(y1) || isNaN(m2) || isNaN(d2) || isNaN(y2)) {
+        rangeOutput.innerHTML = "Please select valid dates for both ranges.";
+        return;
+    }
+
+    const startDate = new Date(y1, m1 - 1, d1);
+    const endDate = new Date(y2, m2 - 1, d2);
+
+    const diffInTime = endDate.getTime() - startDate.getTime();
+    const diffInDays = Math.round(diffInTime / (1000 * 3600 * 24));
+
+    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+    const formattedStart = startDate.toLocaleDateString('en-US', options);
+    const formattedEnd = endDate.toLocaleDateString('en-US', options);
+
+    rangeOutput.innerHTML = `It's ${diffInDays} days from the range of ${formattedStart} - ${formattedEnd}`;
+}
 
 async function loadJson(path) {
     try {
@@ -147,33 +248,79 @@ async function loadJson(path) {
         return await response.json();
     } catch (error) {
         console.error("Failed to load external sites:", error);
-        return {};
+        return [];
     }
 }
 
+let tableOfInitials;
+let keys;
+
 window.addEventListener("DOMContentLoaded", async () => {
-    const tableOfInitials = await loadJson("Resources/initialCountdowns.json");
-    const keys = Object.keys(tableOfInitials);
+    tableOfInitials = await loadJson("Resources/initialCountdowns.json");
+
+    keys = Object.keys(tableOfInitials);
 
     if (keys.length > 0) {
         const randomKey = keys[Math.floor(Math.random() * keys.length)];
         const initialData = tableOfInitials[randomKey];
 
-        // imageElement.setAttribute("src", adData.imageURL);
-        // linkElement.setAttribute("href", adData.linkOfAd);
-        // linkElement.setAttribute("target", "_blank");
-        // messageElement.textContent = adData.message;
+        const month = initialData[1];
+        const day = initialData[2];
+        const year = initialData[3];
+        const name = initialData[0];
 
-        // // Additional attributes:
-        // imageElement.setAttribute("style", adData.imageStyle);
-        // imageElement.setAttribute("width", adData.imageWidth);
-        // messageElement.setAttribute("style", adData.messageStyle);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
 
-        // if (adData.isDownload == true) linkElement.setAttribute("download", "");
+        const checkDate = new Date(year, month, day);
 
-        getCountdown(initialData.mm, initialData.dd, initialData.yy, initialData.name, true);
+        if (year && checkDate < now) {
+            getNumberOfDaysSinceDate(month, day, year, name, true);
+        } else {
+            getCountdown(month, day, year, name, true);
+        }
 
-    } else {
-        console.warn("The initial countdown JSON object is empty!");
+        const randomKey1 = keys[Math.floor(Math.random() * keys.length)];
+        const initialData1 = tableOfInitials[randomKey1];
+
+        const mon1 = initialData1[1];
+        const dayy1 = initialData1[2];
+        let yea1 = initialData1[3];
+
+        if (!yea1 || isNaN(yea1)) {
+            yea1 = now.getFullYear();
+        }
+        
+        const date1 = new Date(yea1, mon1, dayy1);
+
+        let randomKey2, initialData2, mon2, dayy2, yea2, date2;
+        let maxRetries = 15;
+        do {
+            randomKey2 = keys[Math.floor(Math.random() * keys.length)];
+            initialData2 = tableOfInitials[randomKey2];
+
+            mon2 = initialData2[1];
+            dayy2 = initialData2[2];
+            yea2 = initialData2[3];
+
+            if (!yea2 || isNaN(yea2)) {
+                yea2 = now.getFullYear();
+            }
+
+            date2 = new Date(yea2, mon2, dayy2);
+            maxRetries--;
+            
+        } while (date1.getTime() === date2.getTime() && maxRetries > 0);
+
+        if (date1.getTime() === date2.getTime()) {
+            console.warn("Could not find two different dates! Check if your JSON has enough unique dates.");
+            return;
+        }
+
+        if (date1 > date2) {
+            getDaysFromRange(mon2, dayy2, yea2, mon1, dayy1, yea1);
+        } else {
+            getDaysFromRange(mon1, dayy1, yea1, mon2, dayy2, yea2);
+        }
     }
 });

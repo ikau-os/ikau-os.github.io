@@ -39,7 +39,7 @@
 <body>
     <button class="top-left-button" onclick="history.back()">Back</button>
     <h1>Please type below to get the number of days from date:</h1>
-    <h1 id="output">ERROR?</h1>
+    <h1 id="output">ERROR? (Please Refresh!)</h1>
     
     <select id="mm" name="Month" style="width: 200px; font-size: 20px;">
         <option value="" disabled selected hidden>Month*</option>
@@ -64,6 +64,55 @@
     <br>
     <button id="clear" onclick="ClearAll()">Clear All</button>
     <button onclick="SubmitRequest()" class="indent TopIndent">Submit</button>
+    <h1>* Required</h1>
+
+    <div style="margin-top: 20pc;"></div>
+
+    <h1 id="range">Get range of days:</h1>
+    <h1 id="output1">ERROR? (Please Refresh!)</h1>
+    <select id="mm1" name="Month" style="width: 200px; font-size: 20px;">
+        <option value="" disabled selected hidden>Month*</option>
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <input class="indent TopIndent" type="number" placeholder="Day*" id="dd1" value="1" min="1" max="31" oninput="if(this.value > 31) this.value = 31;">
+    <input class="indent TopIndent" type="number" placeholder="Year" id="yy1">
+
+    <div style="margin-top: 2pc;"><h1>-</h1></div>
+
+    <select id="mm2" name="Month" style="width: 200px; font-size: 20px;">
+        <option value="" disabled selected hidden>Month*</option>
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <input class="indent TopIndent" type="number" placeholder="Day*" id="dd2" value="1" min="1" max="31" oninput="if(this.value > 31) this.value = 31;">
+    <input class="indent TopIndent" type="number" placeholder="Year" id="yy2">
+
+    <br>
+    <button id="clear1" onclick="clearAllRange()">Clear All</button>
+    <button onclick="getDaysFromRange()" class="indent TopIndent">Submit</button>
     <h1>* Required</h1>
 
     <script src="Resources/script.js"></script>
