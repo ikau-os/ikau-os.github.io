@@ -1,22 +1,12 @@
 {
     "youtubeChannel": {
-        "message": "Subscribe to GlitchinGamer:",
+        "message": "Subscribe to iKau:",
         "imageURL": "Resources/YouTube.png",
         "linkOfAd": "https://www.youtube.com/channel/UCDDupcLC-TB0g34qXX6Pexw?sub_confirmation=1",
         "imageStyle": "top: 17px;",
         "imageWidth": "50px",
         "messageStyle": "right: 75px",
         "isDownload": false
-    },
-
-    "chromeExt": {
-        "message": "Download my unpacked Chrome Extension (Style Unloader):",
-        "imageURL": "Resources/puzzlePiece.png",
-        "linkOfAd": "../asset/random/Style_Unloader_V1.1.zip",
-        "imageStyle": "top: 17px;",
-        "imageWidth": "50px",
-        "messageStyle": "top: 1.75pc; right: 75px; font-size: 0.85pc;",
-        "isDownload": true
     },
 
     "USConstitutionAmendments": {

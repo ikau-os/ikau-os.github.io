@@ -1,10 +1,3 @@
-// Example div format:
-
-// <a href="https://www.youtube.com/channel/UCDDupcLC-TB0g34qXX6Pexw?sub_confirmation=1" target="_blank">
-//             <img src="Resources/YouTube.png" class="image-link" width="50px" style="top: 17px;">
-// </a>
-// <p style="right: 75px;">Subscribe to GlitchinGamer:</p>
-
 const imageElement = document.getElementById("imageOfAd");
 const linkElement = document.getElementById("linkOfAd");
 const messageElement = document.getElementById("messageOfAd");
