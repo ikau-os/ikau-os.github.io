@@ -66,11 +66,11 @@
     <!-- <p style="position: fixed; bottom: 40px; left: 80px; z-index: 9999;">Math Website is recovered and back!!!<p style="text-decoration: line-through; position: fixed; bottom: 60px; left: 0x; z-index: 9999;">RIP Math Website Late 2024 - 8 Feb. 2026 @ 20:32 UTC</p></p> -->
     <h1>Please click on the available website below:</h1>
     <a href="./websites/compliments-and-insults/"><button id="compliments-and-insults">Compliments & Insults</button></a>
-    <a href="./websites/days-until-day/"><button id="day">Days Until Day</button></a>
+    <a href="./websites/days/"><button id="day">Days Until Day</button></a>
     <a href="./websites/facts/"><button id="fact">Facts</button></a>
     <a href="./websites/soundboard/"><button id="sound">Soundboard</button></a>
     <a href="./websites/recover-links/"><button id="links">"Recoverlinks.com"</button></a>
-    <a href="./websites/generator/"><button id="random">Website Generator</button></a>
+    <a href="./websites/website-randomizer/"><button id="random">Website Generator</button></a>
 
     <h1 style="margin-top: 5pc;">Also see:</h1>
     <a href="./games/"><button id="game">Games</button></a>
@@ -102,7 +102,6 @@
 
             welcomeText.textContent = `Welcome to ${url}`;
         }
-
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -144,7 +143,7 @@
             case "random-link":
             case "randomizer":
             case "generator":
-                window.open("./websites/generator/", "_self");
+                window.open("./websites/website-generator/", "_self");
                 break;
             case "ci":
             case "compliment":
@@ -172,7 +171,7 @@
             case "day until day":
             case "days until date":
             case "day until date":
-                window.open("./websites/days-until-day/", "_self");
+                window.open("./websites/days/", "_self");
                 break;
             case "fact":
             case "facts":

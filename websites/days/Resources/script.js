@@ -194,9 +194,54 @@ function clearAllRange() {
     varTables.forEach(element => {
         element.value = "";
     });
+
+    const now = new Date();
+
+    const randomKey1 = keys[Math.floor(Math.random() * keys.length)];
+    const initialData1 = tableOfInitials[randomKey1];
+
+    const mon1 = initialData1[1];
+    const dayy1 = initialData1[2];
+    let yea1 = initialData1[3];
+
+    if (!yea1 || isNaN(yea1)) {
+        yea1 = now.getFullYear();
+    }
+    
+    const date1 = new Date(yea1, mon1, dayy1);
+
+    let randomKey2, initialData2, mon2, dayy2, yea2, date2;
+    let maxRetries = 15;
+    do {
+        randomKey2 = keys[Math.floor(Math.random() * keys.length)];
+        initialData2 = tableOfInitials[randomKey2];
+
+        mon2 = initialData2[1];
+        dayy2 = initialData2[2];
+        yea2 = initialData2[3];
+
+        if (!yea2 || isNaN(yea2)) {
+            yea2 = now.getFullYear();
+        }
+
+        date2 = new Date(yea2, mon2, dayy2);
+        maxRetries--;
+        
+    } while (date1.getTime() === date2.getTime() && maxRetries > 0);
+
+    if (date1.getTime() === date2.getTime()) {
+        console.warn("Could not find two different dates! Check if your JSON has enough unique dates.");
+        return;
+    }
+
+    if (date1 > date2) {
+        getDaysFromRange(mon2, dayy2, yea2, mon1, dayy1, yea1, true);
+    } else {
+        getDaysFromRange(mon1, dayy1, yea1, mon2, dayy2, yea2, true);
+    }
 }
 
-function getDaysFromRange(mo, da, ye, mo1, da1, ye1) {
+function getDaysFromRange(mo, da, ye, mo1, da1, ye1, isAuto) {
     let m1;
     let d1;
     let y1;
@@ -238,7 +283,11 @@ function getDaysFromRange(mo, da, ye, mo1, da1, ye1) {
     const formattedStart = startDate.toLocaleDateString('en-US', options);
     const formattedEnd = endDate.toLocaleDateString('en-US', options);
 
-    rangeOutput.innerHTML = `It's ${diffInDays} days from the range of ${formattedStart} - ${formattedEnd}`;
+    if (isAuto) {
+        rangeOutput.innerHTML = `Example Output: It's ${diffInDays} days from the range of ${formattedStart} - ${formattedEnd}`;
+    } else {
+        rangeOutput.innerHTML = `It's ${diffInDays} days from the range of ${formattedStart} - ${formattedEnd}`;
+    }
 }
 
 async function loadJson(path) {
@@ -295,6 +344,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         let randomKey2, initialData2, mon2, dayy2, yea2, date2;
         let maxRetries = 15;
+        
         do {
             randomKey2 = keys[Math.floor(Math.random() * keys.length)];
             initialData2 = tableOfInitials[randomKey2];
@@ -318,9 +368,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
 
         if (date1 > date2) {
-            getDaysFromRange(mon2, dayy2, yea2, mon1, dayy1, yea1);
+            getDaysFromRange(mon2, dayy2, yea2, mon1, dayy1, yea1, true);
         } else {
-            getDaysFromRange(mon1, dayy1, yea1, mon2, dayy2, yea2);
+            getDaysFromRange(mon1, dayy1, yea1, mon2, dayy2, yea2, true);
         }
     }
 });

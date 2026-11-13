@@ -1,0 +1,21 @@
+[
+    ["New Years Day", 1, 1, null],
+    ["Groundhog Day", 2, 2, null],
+    ["Valentine's Day", 2, 14, null],
+    ["Pi Day", 3, 14, null],
+    ["St. Patrick's Day", 3, 17, null],
+    ["April Fools' Day", 4, 1, null],
+    ["Tax Day", 4, 15, null],
+    ["Earth Day", 4, 22, null],
+    ["Cinco de Mayo", 5, 5, null],
+    ["Juneteenth", 6, 19, null],
+    ["the signing of the Declaration of Independence", 7, 4, 1776],
+    ["Independence Day (of U.S. of A.)", 7, 4, null],
+    ["Grand Theft Auto V released", 9, 17, 2013],
+    ["Halloween", 10, 31, null],
+    ["Veterans Day", 11, 11, null],
+    ["Grand Theft Auto VI releases", 11, 19, 2026],
+    ["Chrismas Eve", 12, 24, null],
+    ["Chrismas Day", 12, 25, null],
+    ["New Year's Eve", 12, 31, null]
+]
